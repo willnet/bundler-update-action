@@ -35,8 +35,9 @@ module BundlerUpdate
 
   def update_lockfile(target)
     original = File.binread("Gemfile.lock")
-    command = target >= Gem::Version.new("2.6") ? "lock" : "update"
-    success = system({"BUNDLE_GEMFILE" => File.absolute_path("Gemfile")}, "bundle", "_#{target}_", command, "--bundler=#{target}")
+    # Bundler 2.6 only applies lock --bundler when --update is also present.
+    command = target >= Gem::Version.new("2.6") ? ["lock", "--update"] : ["update"]
+    success = system({"BUNDLE_GEMFILE" => File.absolute_path("Gemfile")}, "bundle", "_#{target}_", *command, "--bundler=#{target}")
     raise "Bundler could not update Gemfile.lock" unless success
     result = File.binread("Gemfile.lock")
     return false if result == original

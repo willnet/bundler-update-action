@@ -101,7 +101,7 @@ Ruby setup reads the version configuration (such as `.ruby-version`) in the work
 
 The action checks stable releases on RubyGems.org against the running Ruby and RubyGems versions and the requested constraint. If none is newer than the locked version, the run succeeds without opening a PR. If an earlier update PR has become unnecessary, the PR action closes it. It installs the exact target Bundler if needed and invokes that version directly, so the old locked executable need not run.
 
-For Bundler 2.6 and newer, the action uses `bundle lock --bundler=VERSION`. Older targets use `bundle update --bundler`, which can install application gems. Bundler may record the runner platform. If any other lockfile section changes, the action restores the original file and fails before creating a PR. [Bundler lock](https://bundler.io/man/bundle-lock.1.html) · [Bundler update](https://bundler.io/man/bundle-update.1.html)
+For Bundler 2.6 and newer, the action uses `bundle lock --update --bundler=VERSION`. Older targets use `bundle update --bundler`, which can install application gems. Bundler may record the runner platform. If any other lockfile section changes, the action restores the original file and fails before creating a PR. [Bundler lock](https://bundler.io/man/bundle-lock.1.html) · [Bundler update](https://bundler.io/man/bundle-update.1.html)
 
 ## Troubleshooting
 
